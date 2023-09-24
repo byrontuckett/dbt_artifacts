@@ -84,14 +84,9 @@ jobs:
       # Setup dependencies for pyodbc and ODBC driver 18
       - name: Install Microsoft ODBC
         if: ${{ matrix.warehouse == 'sqlserver' }}
-        run: sudo ACCEPT_EULA=Y apt-get update && \
-          sudo apt-get install -y --no-install-recommends \
-            apt-transport-https \
-            curl  \
-            gnupg2 \
-            unixodbc-dev \
-            lsb-release && \
-            msodbcsql18
+        run: |
+          sudo ACCEPT_EULA=Y apt-get update
+          sudo apt-get install -y --no-install-recommends apt-transport-https curl gnupg2 unixodbc-dev lsb-release msodbcsql18
 
       - name: Build tables for latest release
         env:
@@ -155,14 +150,9 @@ jobs:
       # Setup dependencies for pyodbc and ODBC driver 18
       - name: Install Microsoft ODBC
         if: ${{ matrix.warehouse == 'sqlserver' }}
-        run: sudo ACCEPT_EULA=Y apt-get update && \
-          sudo apt-get install -y --no-install-recommends \
-            apt-transport-https \
-            curl  \
-            gnupg2 \
-            unixodbc-dev \
-            lsb-release && \
-            msodbcsql18
+        run: |
+          sudo ACCEPT_EULA=Y apt-get update
+          sudo apt-get install -y --no-install-recommends apt-transport-https curl gnupg2 unixodbc-dev lsb-release msodbcsql18
 
       - name: Run Tests on PR
         env:
