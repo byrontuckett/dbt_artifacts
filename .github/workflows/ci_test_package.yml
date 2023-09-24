@@ -27,7 +27,7 @@ env:
   DBT_ENV_SECRET_SQLSERVER_TEST_USER: ${{ secrets.DBT_ENV_SECRET_SQLSERVER_TEST_USER }}
   DBT_ENV_SECRET_SQLSERVER_TEST_PASSWORD: ${{ secrets.DBT_ENV_SECRET_SQLSERVER_TEST_PASSWORD }}
   # Env var to test version
-  LAST_RELEASE_SUPPORTED_DBT_VERSION: 1_6_0 # A dbt version supported by both the last release and this one
+  LAST_RELEASE_SUPPORTED_DBT_VERSION: 1_4_0 # A dbt version supported by both the last release and this one
   # Env vars to test invocations model
   DBT_CLOUD_PROJECT_ID: 123
   DBT_CLOUD_JOB_ID: ABC
