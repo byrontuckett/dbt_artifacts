@@ -202,9 +202,9 @@
         '{{ env_var('DBT_CLOUD_RUN_REASON_CATEGORY', '') }}', {# dbt_cloud_run_reason_category #}
         '{{ env_var('DBT_CLOUD_RUN_REASON', '') | replace("'","''") }}', {# dbt_cloud_run_reason #}
 
-        {% if var('env_vars', none) %}
+        {% if var('env_vars', none) -%}
             {% set env_vars_dict = {} %}
-            {% for env_variable in var('env_vars') %}
+            {% for env_variable in var('env_vars') -%}
                 {% do env_vars_dict.update({env_variable: (env_var(env_variable, '') | replace("'", "''"))}) %}
             {% endfor %}
             '{{ tojson(env_vars_dict) }}', {# env_vars #}
@@ -212,9 +212,9 @@
             null, {# env_vars #}
         {% endif %}
 
-        {% if var('dbt_vars', none) %}
+        {% if var('dbt_vars', none) -%}
             {% set dbt_vars_dict = {} %}
-            {% for dbt_var in var('dbt_vars') %}
+            {% for dbt_var in var('dbt_vars') -%}
                 {% do dbt_vars_dict.update({dbt_var: (var(dbt_var, '') | replace("'", "''"))}) %}
             {% endfor %}
             '{{ tojson(dbt_vars_dict) }}', {# dbt_vars #}
@@ -223,10 +223,6 @@
         {% endif %}
 
         '{{ tojson(invocation_args_dict) | replace('\\', '\\\\') | replace("'", "\\'") }}', {# invocation_args #}
-
-
-        '{{ tojson(invocation_args_dict) | replace('\\', '\\\\') }}', {# invocation_args #}
-        '{{ tojson(dbt_metadata_envs) }}' {# dbt_custom_envs #}
 
         {% set metadata_env = {} %}
         {% for key, value in dbt_metadata_envs.items() %}

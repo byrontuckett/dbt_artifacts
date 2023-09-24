@@ -123,11 +123,11 @@
                 '{{ snapshot.config.strategy }}', {# strategy #}
                 '{{ tojson(snapshot.config.meta) | replace("\\", "\\\\") | replace("'","\\'") | replace('"', '\\"') }}', {# meta #}
                 '{{ snapshot.alias }}', {# alias #}
-                {% if var('dbt_artifacts_exclude_all_results', false) %}
+                {% if var('dbt_artifacts_exclude_all_results', false) -%}
                     null
-                {% else %}
+                {% else -%}
                     '{{ tojson(snapshot) | replace("\\", "\\\\") | replace("'","\\'") | replace('"', '\\"') }}' {# all_results #}
-                {% endif %}
+                {% endif -%}
             )
             {%- if not loop.last %},{%- endif %}
         {%- endfor %}
