@@ -85,13 +85,13 @@ jobs:
       - name: Install Microsoft ODBC
         if: ${{ matrix.warehouse == 'sqlserver' }}
         run: sudo ACCEPT_EULA=Y apt-get update && \
-          apt-get install -y --no-install-recommends \
+          sudo apt-get install -y --no-install-recommends \
             apt-transport-https \
             curl  \
             gnupg2 \
             unixodbc-dev \
             lsb-release && \
-            msodbcsql18 -y
+            msodbcsql18
 
       - name: Build tables for latest release
         env:
@@ -156,13 +156,13 @@ jobs:
       - name: Install Microsoft ODBC
         if: ${{ matrix.warehouse == 'sqlserver' }}
         run: sudo ACCEPT_EULA=Y apt-get update && \
-          apt-get install -y --no-install-recommends \
+          sudo apt-get install -y --no-install-recommends \
             apt-transport-https \
             curl  \
             gnupg2 \
             unixodbc-dev \
             lsb-release && \
-            msodbcsql18 -y
+            msodbcsql18
 
       - name: Run Tests on PR
         env:
