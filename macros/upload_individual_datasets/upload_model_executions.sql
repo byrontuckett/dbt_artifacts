@@ -232,6 +232,7 @@
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(14) }},
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(15) }},
             {{ adapter.dispatch('parse_json', 'dbt_artifacts')(adapter.dispatch('column_identifier', 'dbt_artifacts')(16)) }}
+
         from (values
         {% for model in models -%}
             (
@@ -275,28 +276,28 @@
                 '{{ model.node.schema }}', {# schema #}
                 '{{ model.node.name }}', {# name #}
                 '{{ model.node.alias }}', {# alias #}
-                '{{ model.message | replace("\\", "\\\\") | replace("'", "\\'") | replace('"', '\\"') }}', {# message #}
+                '{{ model.message | replace("'", "''") }}', {# adapter_response #}
                 '{{ tojson(model.adapter_response) | replace("\\", "\\\\") | replace("'", "\\'") | replace('"', '\\"') }}' {# adapter_response #}
             )
             {%- if not loop.last %},{%- endif %}
         {%- endfor %}
-        ) as model_execution_values(
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(1) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(2) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(3) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(4) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(5) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(6) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(7) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(8) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(9) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(10) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(11) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(12) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(13) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(14) }},
-                        {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(15) }},
-                        {{ adapter.dispatch('parse_json', 'dbt_artifacts')(adapter.dispatch('column_identifier', 'dbt_artifacts')(16)) }}
+        ) as model_execution_values (
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(1) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(2) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(3) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(4) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(5) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(6) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(7) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(8) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(9) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(10) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(11) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(12) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(13) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(14) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(15) }},
+            {{ adapter.dispatch('parse_json', 'dbt_artifacts')(adapter.dispatch('column_identifier', 'dbt_artifacts')(16)) }}
         )
         {% endset %}
         {{ model_execution_values }}
