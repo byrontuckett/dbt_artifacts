@@ -127,13 +127,12 @@
                 '{{ model.checksum.checksum }}', {# checksum #}
                 '{{ model.config.materialized }}', {# materialization #}
                 '{{ tojson(model.tags) }}', {# tags #}
-                -- '{{ tojson(model.config.meta) }}', {# meta #}
-                '{{ tojson(model.config.meta) | replace("\\", "\\\\") | replace("'","\\'") | replace('"', '\\"') }}', {# meta #}
+                '{{ tojson(model.config.meta) | replace("\\", "\\\\") | replace("'","''") | replace('"', '\\"') }}', {# meta #}
                 '{{ model.alias }}', {# alias #}
-                {% if var('dbt_artifacts_exclude_all_results', false) %}
+                {% if var('dbt_artifacts_exclude_all_results', false) -%}
                     null
                 {% else %}
-                    '{{ tojson(model) | replace("\\", "\\\\") | replace("'","\\'") | replace('"', '\\"') }}' {# all_results #}
+                    '{{ tojson(model) | replace("\\", "\\\\") | replace("'","''") | replace('"', '\\"') }}' {# all_results #}
                 {% endif %}
             )
             {%- if not loop.last %},{%- endif %}
@@ -152,7 +151,7 @@
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(11) }},
             {{ adapter.dispatch('parse_json', 'dbt_artifacts')(adapter.dispatch('column_identifier', 'dbt_artifacts')(12)) }},
             {{ adapter.dispatch('parse_json', 'dbt_artifacts')(adapter.dispatch('column_identifier', 'dbt_artifacts')(13)) }},
-            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(14) }}
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(14) }},
             {{ adapter.dispatch('parse_json', 'dbt_artifacts')(adapter.dispatch('column_identifier', 'dbt_artifacts')(15)) }}
         )
         {% endset %}

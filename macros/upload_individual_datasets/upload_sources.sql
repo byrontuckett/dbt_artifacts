@@ -108,12 +108,12 @@
                 '{{ source.loader }}', {# loader #}
                 '{{ source.name }}', {# name #}
                 '{{ source.identifier }}', {# identifier #}
-                '{{ source.loaded_at_field | replace("'","\\'") }}', {# loaded_at_field #}
-                '{{ tojson(source.freshness) | replace("'","\\'") }}', {# freshness #}
+                '{{ source.loaded_at_field | replace("'","''") }}', {# loaded_at_field #}
+                '{{ tojson(source.freshness) | replace("'","''") }}', {# freshness #}
                 {% if var('dbt_artifacts_exclude_all_results', false) %}
                     null
                 {% else %}
-                    '{{ tojson(source) | replace("\\", "\\\\") | replace("'", "\\'") | replace('"', '\\"') }}' {# all_results #}
+                    '{{ tojson(source) | replace("\\", "\\\\") | replace("'", "''") | replace('"', '\\"') }}' {# all_results #}
                 {% endif %}
             )
             {%- if not loop.last %},{%- endif %}

@@ -7,7 +7,7 @@ sources:
     freshness:
       error_after: {count: 24, period: hour}
       filter: dayname(updatedat) not in ('Sunday', 'Monday')
-    loaded_at_field: convert_timezone('UTC', load_timestamp)
+    loaded_at_field: "{% if target.type == 'sqlserver' %} load_timestamp AT TIME ZONE 'UTC' {% else %}  convert_timezone('UTC', load_timestamp) {% endif %}"
     tables:
       - name: doesnt_exist
       - name: '"GROUP"'
