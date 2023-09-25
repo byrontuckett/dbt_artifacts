@@ -98,7 +98,7 @@
                 {% if var('dbt_artifacts_exclude_all_results', false) %}
                     null
                 {% else %}
-                    '{{ tojson(test) | replace("\\", "\\\\") | replace("'","\\'") | replace('"', '\\"') }}' {# all_fields #}
+                    '{{ tojson(test) | replace("\\", "\\\\") | replace("'","''") | replace('"', '\\"') }}' {# all_fields #}
                 {% endif %}
             )
             {%- if not loop.last %},{%- endif %}

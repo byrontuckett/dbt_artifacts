@@ -121,12 +121,12 @@
                 '{{ snapshot.original_file_path | replace('\\', '\\\\') }}', {# path #}
                 '{{ snapshot.checksum.checksum | replace('\\', '\\\\') }}', {# checksum #}
                 '{{ snapshot.config.strategy }}', {# strategy #}
-                '{{ tojson(snapshot.config.meta) | replace("\\", "\\\\") | replace("'","\\'") | replace('"', '\\"') }}', {# meta #}
+                '{{ tojson(snapshot.config.meta) | replace("\\", "\\\\") | replace("'","''") | replace('"', '\\"') }}', {# meta #}
                 '{{ snapshot.alias }}', {# alias #}
                 {% if var('dbt_artifacts_exclude_all_results', false) -%}
                     null
                 {% else -%}
-                    '{{ tojson(snapshot) | replace("\\", "\\\\") | replace("'","\\'") | replace('"', '\\"') }}' {# all_results #}
+                    '{{ tojson(snapshot) | replace("\\", "\\\\") | replace("'","''") | replace('"', '\\"') }}' {# all_results #}
                 {% endif -%}
             )
             {%- if not loop.last %},{%- endif %}

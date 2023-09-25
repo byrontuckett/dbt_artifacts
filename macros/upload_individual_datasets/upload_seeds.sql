@@ -114,7 +114,7 @@
                 {% if var('dbt_artifacts_exclude_all_results', false) %}
                     null
                 {% else %}
-                    '{{ tojson(seed) | replace("\\", "\\\\") | replace("'","\\'") | replace('"', '\\"') }}' {# all_results #}
+                    '{{ tojson(seed) | replace("\\", "\\\\") | replace("'","''") | replace('"', '\\"') }}' {# all_results #}
                 {% endif %}
 
             )

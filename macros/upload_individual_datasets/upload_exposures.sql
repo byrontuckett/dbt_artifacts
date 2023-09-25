@@ -122,7 +122,7 @@
                     {% if var('dbt_artifacts_exclude_all_results', false) -%}
                         null
                     {%- else -%}
-                        '{{ adapter.dispatch('parse_json', 'dbt_artifacts')(tojson(exposure) | replace("\\", "\\\\") | replace("'", "\\'") | replace('"', '\\"')) }}' {# all_results #}
+                        '{{ adapter.dispatch('parse_json', 'dbt_artifacts')(tojson(exposure) | replace("\\", "\\\\") | replace("'", "''") | replace('"', '\\"')) }}' {# all_results #}
                     {% endif %}
                 )
                 {%- if not loop.last -%},{%- endif %}
