@@ -109,6 +109,13 @@ jobs:
       - name: Run Tests on PR
         run: tox -e integration_${{ matrix.warehouse }}_${{ env.LAST_RELEASE_SUPPORTED_DBT_VERSION }}
 
+      - name: Upload logfile
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: dbt.log
+          path: /home/runner/work/dbt_artifacts/dbt_artifacts/integration_test_project/logs/
+
   single-run-different-versions:
     needs: integration
     strategy:
