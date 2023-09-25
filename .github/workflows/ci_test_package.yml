@@ -43,8 +43,7 @@ jobs:
     strategy:
       fail-fast: false # Don't fail one DWH if the others fail
       matrix:
-        # warehouse: ["snowflake", "bigquery"]
-        warehouse: ["sqlserver"]
+        warehouse: ["snowflake", "bigquery", "sqlserver"]
     runs-on: ubuntu-latest
     environment:
       name: Approve Integration Tests
@@ -81,7 +80,6 @@ jobs:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
-      # Setup dependencies for pyodbc and ODBC driver 18
       - name: Install Microsoft ODBC
         if: ${{ matrix.warehouse == 'sqlserver' }}
         run: |
@@ -109,23 +107,14 @@ jobs:
       - name: Run Tests on PR
         run: tox -e integration_${{ matrix.warehouse }}_${{ env.LAST_RELEASE_SUPPORTED_DBT_VERSION }}
 
-      - name: Upload logfile
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: dbt.log
-          path: /home/runner/work/dbt_artifacts/dbt_artifacts/integration_test_project/logs/
-
   single-run-different-versions:
     needs: integration
     strategy:
       fail-fast: false # Don't fail one DWH if the others fail
       matrix:
-        # warehouse: ["snowflake", "bigquery"] #TODO: Fix
-        warehouse: ["sqlserver"]
+        warehouse: ["snowflake", "bigquery", "sqlserver"]
         # When supporting a new version, update the list here
-        version: ["1_3_0", "1_4_0"]
-        # version: ["1_3_0", "1_4_0", "1_5_0", "1_6_0"] #TODO: fix
+        version: ["1_3_0", "1_4_0", "1_5_0", "1_6_0"]
     runs-on: ubuntu-latest
     environment:
       name: Approve Integration Tests
@@ -155,7 +144,6 @@ jobs:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
-      # Setup dependencies for pyodbc and ODBC driver 18
       - name: Install Microsoft ODBC
         if: ${{ matrix.warehouse == 'sqlserver' }}
         run: |
@@ -191,11 +179,3 @@ jobs:
   #       env:
   #         DBT_VERSION: ''
   #       run: tox -e integration_databricks
-
-
-      - name: Upload logfile
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: dbt.log
-          path: /home/runner/work/dbt_artifacts/dbt_artifacts/integration_test_project/logs/
