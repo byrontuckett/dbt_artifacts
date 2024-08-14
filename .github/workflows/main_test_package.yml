@@ -20,6 +20,10 @@ env:
   DBT_ENV_SECRET_DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}
   DBT_ENV_SECRET_DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
   DBT_ENV_SECRET_GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
+  DBT_ENV_SECRET_SQLSERVER_TEST_DATABASE: ${{ secrets.SQLSERVER_TEST_DATABASE }}
+  DBT_ENV_SECRET_SQLSERVER_TEST_SERVER: ${{ secrets.SQLSERVER_TEST_SERVER }}
+  DBT_ENV_SECRET_SQLSERVER_TEST_USER: ${{ secrets.SQLSERVER_TEST_USER }}
+  DBT_ENV_SECRET_SQLSERVER_TEST_PASSWORD: ${{ secrets.SQLSERVER_TEST_PASSWORD }}
   # Env vars to test invocations model
   DBT_CLOUD_PROJECT_ID: 123
   DBT_CLOUD_JOB_ID: ABC
@@ -34,7 +38,7 @@ jobs:
   integration:
     strategy:
       matrix:
-        warehouse: ["snowflake", "bigquery"]
+        warehouse: ["snowflake", "bigquery", "sqlserver"]
         version: ["1_3_0", "1_4_0", "1_5_0", "1_6_0"]
     runs-on: ubuntu-latest
     permissions:
@@ -59,6 +63,12 @@ jobs:
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Install Microsoft ODBC
+        if: ${{ matrix.warehouse == 'sqlserver' }}
+        run: |
+          sudo ACCEPT_EULA=Y apt-get update
+          sudo apt-get install -y --no-install-recommends apt-transport-https curl gnupg2 unixodbc-dev lsb-release msodbcsql18
 
       - name: Run ${{ matrix.warehouse }} Tests
         env:

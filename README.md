@@ -18,6 +18,8 @@ The package currently supports
 - Spark :white_check_mark:
 - Snowflake :white_check_mark:
 - Google BigQuery :white_check_mark:
+- MSFT SqlServer (<= 1.4) :white_check_mark:
+
 
 Models included:
 

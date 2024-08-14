@@ -78,11 +78,14 @@ Tox will take care of installing the dependencies for each environment, so you d
     tox -e integration_snowflake # For the Snowflake tests
     tox -e integration_databricks # For the Databricks tests
     tox -e integration_bigquery # For the BigQuery tests
+    tox -e integration_sqlserver # For the SQLServer tests
     ```
 
 The Spark tests require installing the [ODBC driver](https://www.databricks.com/spark/odbc-drivers-download). On a Mac,
 DBT_ENV_SPARK_DRIVER_PATH should be set to `/Library/simba/spark/lib/libsparkodbc_sbu.dylib`. Spark tests have not yet
 been added to the integration tests.
+
+The SQLServer tests require installing the [ODBC Driver](https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server). For the integration tests, v18 is used.
 
 If you don't have access to a particular database type, this isn't a problem. Test on the one you do have, and let us know in the PR.
 
